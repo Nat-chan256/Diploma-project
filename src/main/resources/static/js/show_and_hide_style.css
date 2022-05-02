@@ -1,0 +1,6 @@
+.visible-fieldset{
+    display: block;
+}
+.invisible-fieldset{
+    display: none;
+}

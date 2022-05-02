@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Diabetes Diagnosis Expert System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/js/show_and_hide_style.css}">
+    <link rel="stylesheet" th:href="@{/js/light.css}">
+    <link rel="stylesheet" th:href="@{/js/style.css}">
+</head>
+<body>
+<header>
+    <div class="lgt-header">
+        <button class="lgt-btn" id="next">Next&nbsp;&nbsp;></button>
+    </div>
+    <div class="lgt-nav">
+        <span class="lgt-nav-item lgt-primary-text">1. Person Info&nbsp;&nbsp;>&nbsp;&nbsp;</span>
+        <span class="lgt-nav-item">2. Test &nbsp;&nbsp;>&nbsp;&nbsp;</span>
+        <span class="lgt-nav-item">3. Risk Factor &nbsp;&nbsp;>&nbsp;&nbsp;</span>
+        <span class="lgt-nav-item">4. Symptom</span>
+        <!--<span class="lgt-nav-item">5. Diagnosis</span>-->
+    </div>
+</header>
+
+<!--<section class="lgt-grid">-->
+<form th:method="POST" th:action="@{/diabetes2}">
+    <div class="container">
+        <div class="lgt-card page stage-center" th:object="${personInfo}">
+                <fieldset class="" id="user-question">
+                    <div class="lgt-input-group">
+                        What is your gender?
+                        <input type="radio" name="gender" value="male"
+                               onclick="document.querySelector('#pregnant-group').style.display = 'none';"
+                               th:field="*{gender}"> Male
+                        <input type="radio" name="gender" value="female"
+                               onclick="document.querySelector('#pregnant-group').style.display = 'block';"
+                               th:field="*{gender}"> Female
+                        <span class="lgt-error"></span>
+                    </div>
+                    <div class="lgt-input-group" id="pregnant-group" style="display:none;">
+                        Are you pregnant? <input type="radio" name="pregnant" value="yes"  autocomplete="off"
+                                                 th:field="*{pregnant}"> Yes
+                        <input type="radio" name="pregnant"  value="no" autocomplete="off" th:field="*{pregnant}"> No
+                        <span class="lgt-error"></span>
+                    </div>
+                    <div class="lgt-input-group">
+                        How old are you? <input name="age" type="text" class="lgt-text-input"  autocomplete="off"
+                                                th:field="*{age}"/>
+                        <span class="lgt-error"></span>
+                    </div>
+                </fieldset>
+        </div>
+
+        <div class="lgt-card page stage-right" th:object="${test}">
+            <fieldset class="invisible-fieldset" id="test-question" >
+                <div class="lgt-input-group">
+                    How much is your blood glucose level (mmol/L) shown in 2-hours post Oral Glucose Tolerance test
+                    (OGTT) ?
+                        <input name="OGTT" type="text" class="lgt-text-input" th:field="*{OGTT}"/>
+                    <span class="lgt-error"></span>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="lgt-card page stage-right" th:object="${riskFactor}">
+            <fieldset class="invisible-fieldset" id="risk-factor-question" >
+                <div class="lgt-input-group">
+                    How much is your Body Mass Index (BMI) ? <input name="obesity" type="text" th:field="*{obesity}" />
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have high blood pressure (>= 140/90 Mm Hg)?
+                    <input type="radio" name="blood-pressure" value="yes" th:field="*{bloodPressure}"> Yes
+                    <input type="radio" name="blood-pressure" value="no" th:field="*{bloodPressure}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have any family member has history of diabetes?
+                    <input type="radio" name="family-history" value="yes" th:field="*{familyHistory}"> Yes
+                    <input type="radio" name="family-history" value="no" th:field="*{familyHistory}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    What's your triglyceride (body fat):
+                    <input type="radio" name="TG" value="n" th:field="*{TG}"> normal level (< 150mg/dL)
+                    <input type="radio" name="TG" value="b" th:field="*{TG}"> borderline high (150-199mg/dL)
+                    <input type="radio" name="TG" value="h" th:field="*{TG}"> high to very high (>200mg/dL)
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you exercise (do physical activity) at least 3 times per week?
+                    <input type="radio" name="low-activity" value="yes" th:field="*{lowActivity}"> Yes
+                    <input type="radio" name="low-activity" value="no" th:field="*{lowActivity}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have impaired Glucose Tolerance in previous tests?
+                    <input type="radio" name="IGT" value="yes" th:field="*{IGT}"> Yes
+                    <input type="radio" name="IGT" value="no" th:field="*{IGT}"> No
+                    <span class="lgt-error"></span>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="lgt-card page stage-right" th:object="${symptom}">
+            <fieldset class="invisible-fieldset" id="symp-question" >
+                <div class="lgt-input-group">
+                    Do you have headache? <input type="radio" name="headache" value="yes" th:field="*{headache}"> Yes
+                    <input type="radio" name="headache" value="no" th:field="*{headache}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you experience any blur of vision?
+                    <input type="radio" name="BV" value="yes" th:field="*{BV}"> Yes
+                    <input type="radio" name="BV" value="no" th:field="*{BV}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have excessive urination (the need to urinate more than you normally would, might occur along
+                    with bladder discomfort)? <input type="radio" name="EU" value="yes" th:field="*{EU}"> Yes
+                    <input type="radio" name="EU" value="no" th:field="*{EU}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have polydipsia (excessive thirst)?
+                    <input type="radio" name="polydipsia" value="yes" th:field="*{polydipsia}"> Yes
+                    <input type="radio" name="polydipsia" value="no" th:field="*{polydipsia}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you experience losing consciousness?
+                    <input type="radio" name="LC" value="yes" th:field="*{LC}"> Yes
+                    <input type="radio" name="LC" value="no" th:field="*{LC}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have symptom of nausea and vomitting?
+                    <input type="radio" name="NV" value="yes" th:field="*{NV}"> Yes
+                    <input type="radio" name="NV" value="no" th:field="*{NV}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you experience polyphagia or hyperphagia (excessive hunger or abnormally consumption of large
+                    quantities of food)? <input type="radio" name="polyphagia" value="yes" th:field="*{polyphagia}"> Yes
+                    <input type="radio" name="polyphagia" value="no" th:field="*{polyphagia}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you experience tiredness?
+                    <input type="radio" name="tiredness" value="yes" th:field="*{tiredness}"> Yes
+                    <input type="radio" name="tiredness" value="no" th:field="*{tiredness}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Are you losing weight without reason?
+                    <input type="radio" name="LW" value="yes" th:field="*{LW}"> Yes
+                    <input type="radio" name="LW" value="no" th:field="*{LW}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have any fraction and skin tag?
+                    <input type="radio" name="FST" value="yes" th:field="*{FST}"> Yes
+                    <input type="radio" name="FST" value="no" th:field="*{FST}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have frequent infections?
+                    <input type="radio" name="FI" value="yes" th:field="*{FI}"> Yes
+                    <input type="radio" name="FI" value="no" th:field="*{FI}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have experience loss of sensation in hands and feet?
+                    <input type="radio" name="sensation" value="yes" th:field="*{sensation}"> Yes
+                    <input type="radio" name="sensation" value="no" th:field="*{sensation}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    Do you have experience cold sweat (sudden sweating not due to exertion or heat)?
+                    <input type="radio" name="cold-sweat" value="yes" th:field="*{coldSweat}"> Yes
+                    <input type="radio" name="cold-sweat" value="no" th:field="*{coldSweat}"> No
+                    <span class="lgt-error"></span>
+                </div>
+                <input type="submit" value="Submit"/>
+            </fieldset>
+        </div>
+    </div>
+</form>
+<!--            <button id="next">Next</button>-->
+<!--</section>-->
+    <script th:src="@{/js/index.js}"></script>
+</body>
+</html>
