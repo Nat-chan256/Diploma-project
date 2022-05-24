@@ -7,11 +7,10 @@ import ru.kubgu.moskovka.diabetes.entity.Test;
 
 public class TestHandlerAgent extends WorkerAgent {
 
-    private Environment clips;
     private Test test;
 
     public TestHandlerAgent(Environment clips, Test test) {
-        this.clips = clips;
+        super(clips);
         this.test = test;
     }
 

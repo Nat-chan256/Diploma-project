@@ -101,7 +101,7 @@ public class RecommenderController {
             throw new Error(e);
         }
         coordinatorAgentName = agentController.getName();
-//        for (Agent agent : agents)
-//            agent.doWake();
+        for (Agent agent : agents)
+            agent.doWake();
     }
 }

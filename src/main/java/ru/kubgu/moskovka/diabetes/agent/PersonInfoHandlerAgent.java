@@ -6,11 +6,10 @@ import net.sf.clipsrules.jni.Environment;
 import ru.kubgu.moskovka.diabetes.entity.PersonInfo;
 
 public class PersonInfoHandlerAgent extends WorkerAgent {
-    private Environment clips;
     private PersonInfo personInfo;
 
     public PersonInfoHandlerAgent(Environment clips, PersonInfo personInfo) {
-        this.clips = clips;
+        super(clips);
         this.personInfo = personInfo;
     }
 

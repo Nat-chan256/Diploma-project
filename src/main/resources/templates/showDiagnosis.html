@@ -3,8 +3,11 @@
   <head>
       <meta charset="UTF-8">
       <title>Diagnosis</title>
+      <link rel="stylesheet" th:href="@{/js/light.css}">
+      <link rel="stylesheet" th:href="@{/js/style.css}">
   </head>
   <body>
-  <span>Your conjectural diagnosis is: </span><span th:text="${diagnosis}"></span>
+      <span class="result-title">Your conjectural diagnosis is: </span>
+      <span class="result-title" th:text="${diagnosis}"></span>
   </body>
 </html>

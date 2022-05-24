@@ -1,13 +1,7 @@
 (function () {
     let age;
     let gender;
-    if (document.getElementsByName("gender")[0].checked) {
-        gender = document.getElementsByName("gender")[0].value;
-    }
-    if (document.getElementsByName("gender")[1].checked) {
-        gender = document.getElementsByName("gender")[1].value;
-        document.querySelector('#pregnant-group').style.display = 'block';
-    }
+
     let pregnant;
     if (document.getElementsByName("pregnant")[0].checked) {
         pregnant = document.getElementsByName("pregnant")[0].value;
@@ -157,7 +151,7 @@
     //let container = document.querySelector("section"); // top container
     let fieldsets = document.querySelectorAll("fieldset"); // select all question fields
     let pages = document.querySelectorAll(".page"); // select all question fields
-    let count = 0;
+    let count = navItems[0].classList.contains("lgt-primary-text")? 0 : 1;
 
     // error check
     function check() {
@@ -206,9 +200,9 @@
                 if (gender === "male") {
                     pregnant = "no";
                 }
-                if (!check(gender, pregnant, age)) {
-                    return;
-                }
+                // if (!check(gender, pregnant, age)) {
+                //     return;
+                // }
 
                 let testField = fieldsets[1];
 

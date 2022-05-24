@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Diabetes Diagnosis Expert System</title>
@@ -20,8 +15,10 @@ and open the template in the editor.
         <button class="lgt-btn" id="next">Next&nbsp;&nbsp;></button>
     </div>
     <div class="lgt-nav">
-        <span class="lgt-nav-item lgt-primary-text">1. Person Info&nbsp;&nbsp;>&nbsp;&nbsp;</span>
-        <span class="lgt-nav-item">2. Test &nbsp;&nbsp;>&nbsp;&nbsp;</span>
+        <span th:class="${user.getGender() == 'Female'} ? 'lgt-nav-item lgt-primary-text' : 'lgt-nav-item'" >
+            1. Person Info&nbsp;&nbsp;>&nbsp;&nbsp;</span>
+        <span th:class="${user.getGender() != 'Female'} ? 'lgt-nav-item lgt-primary-text' : 'lgt-nav-item'">2. Test &nbsp;&nbsp;>&nbsp;&nbsp;
+        </span>
         <span class="lgt-nav-item">3. Risk Factor &nbsp;&nbsp;>&nbsp;&nbsp;</span>
         <span class="lgt-nav-item">4. Symptom</span>
         <!--<span class="lgt-nav-item">5. Diagnosis</span>-->
@@ -31,38 +28,35 @@ and open the template in the editor.
 <!--<section class="lgt-grid">-->
 <form th:method="POST" th:action="@{/diabetes2}">
     <div class="container">
-        <div class="lgt-card page stage-center" th:object="${personInfo}">
-                <fieldset class="" id="user-question">
-                    <div class="lgt-input-group">
-                        What is your gender?
-                        <input type="radio" name="gender" value="male"
-                               onclick="document.querySelector('#pregnant-group').style.display = 'none';"
-                               th:field="*{gender}"> Male
-                        <input type="radio" name="gender" value="female"
-                               onclick="document.querySelector('#pregnant-group').style.display = 'block';"
-                               th:field="*{gender}"> Female
-                        <span class="lgt-error"></span>
-                    </div>
-                    <div class="lgt-input-group" id="pregnant-group" style="display:none;">
+        <div th:class="${user.getGender() == 'Female'} ? 'lgt-card page stage-center' : 'lgt-card page stage-left'"
+             th:object="${personInfo}">
+                <fieldset th:class="${user.getGender() != 'Female'} ? 'invisible-fieldset' : '' " id="user-question">
+                    <div class="lgt-input-group" id="pregnant-group">
                         Are you pregnant? <input type="radio" name="pregnant" value="yes"  autocomplete="off"
                                                  th:field="*{pregnant}"> Yes
                         <input type="radio" name="pregnant"  value="no" autocomplete="off" th:field="*{pregnant}"> No
                         <span class="lgt-error"></span>
                     </div>
-                    <div class="lgt-input-group">
-                        How old are you? <input name="age" type="text" class="lgt-text-input"  autocomplete="off"
-                                                th:field="*{age}"/>
-                        <span class="lgt-error"></span>
-                    </div>
                 </fieldset>
         </div>
 
-        <div class="lgt-card page stage-right" th:object="${test}">
-            <fieldset class="invisible-fieldset" id="test-question" >
+        <div  th:class="${user.getGender() == 'Female'} ? 'lgt-card page stage-right' : 'lgt-card page stage-center'"
+              th:object="${test}">
+            <fieldset th:class="${user.getGender() == 'Female'} ? 'invisible-fieldset' : '' " id="test-question" >
                 <div class="lgt-input-group">
                     How much is your blood glucose level (mmol/L) shown in 2-hours post Oral Glucose Tolerance test
                     (OGTT) ?
                         <input name="OGTT" type="text" class="lgt-text-input" th:field="*{OGTT}"/>
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    How much is your blood glucose level (mmol/L) shown in Fasting Plasma Glucose test (FPG) ?
+                    <input name="FPG" type="text" class="lgt-text-input" th:field="*{FPG}"/>
+                    <span class="lgt-error"></span>
+                </div>
+                <div class="lgt-input-group">
+                    How much is your blood glucose level (mmol/L) shown in Casual Plasma Glucose test (CPG) ?
+                    <input name="CPG" type="text" class="lgt-text-input" th:field="*{CPG}"/>
                     <span class="lgt-error"></span>
                 </div>
             </fieldset>

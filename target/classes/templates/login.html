@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" th:href="@{/js/light.css}">
+        <link rel="stylesheet" th:href="@{/js/style.css}">
+    </head>
+    <body>
+        <form th:action="@{/diabetes}" th:method="POST" th:object="${user}">
+            <div class="container">
+                <div class="lgt-input-group">
+                    Login <input type="text" class="lgt-text-input"  autocomplete="off"
+                                 th:field="*{login}"/>
+                    <span class="lgt-error"></span>
+                </div>
+
+                <div class="lgt-input-group">
+                    Password <input type="password" class="lgt-text-input"  autocomplete="off"
+                                    th:field="*{password}"/>
+                    <span class="lgt-error"></span>
+                </div>
+
+                <input type="submit" value="Sign in" />
+
+                <div th:text="${error}" class="error"></div>
+            </div>
+        </form>
+    </body>
+</html>

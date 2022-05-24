@@ -6,11 +6,10 @@ import net.sf.clipsrules.jni.Environment;
 import ru.kubgu.moskovka.diabetes.entity.RiskFactor;
 
 public class RiskFactorHandlerAgent extends WorkerAgent {
-    private Environment clips;
     private RiskFactor riskFactor;
 
     public RiskFactorHandlerAgent(Environment clips, RiskFactor riskFactor) {
-        this.clips = clips;
+        super(clips);
         this.riskFactor = riskFactor;
     }
 

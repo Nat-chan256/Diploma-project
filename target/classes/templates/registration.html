@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/js/light.css}">
+    <link rel="stylesheet" th:href="@{/js/style.css}">
+</head>
+<body>
+    <form th:method="POST" th:object="${user}" th:action="@{/registration}">
+        <div class="container">
+            <div class="lgt-input-group">
+                Name <input type="text" class="lgt-text-input"  autocomplete="off"
+                            th:field="*{name}"/>
+                <span class="lgt-error"></span>
+            </div>
+
+            <div class="lgt-input-group">
+                Surname <input type="text" class="lgt-text-input"  autocomplete="off"
+                               th:field="*{surname}"/>
+                <span class="lgt-error"></span>
+            </div>
+
+            <div class="lgt-input-group">
+                Login <input type="text" class="lgt-text-input"  autocomplete="off"
+                             th:field="*{login}"/>
+                <span class="lgt-error"></span>
+            </div>
+
+            <div class="lgt-input-group">
+                Birthdate <input type="date" class="lgt-text-input"  autocomplete="off"
+                                 th:field="*{birthDate}"/>
+                <span class="lgt-error"></span>
+            </div>
+
+            <div class="lgt-input-group">
+                Gender
+                <input type="radio" name="gender" value="male"
+                       th:field="*{gender}"> Male
+                <input type="radio" name="gender" value="female"
+                       th:field="*{gender}"> Female
+                <span class="lgt-error"></span>
+            </div>
+
+            <div class="lgt-input-group">
+                Password <input type="password" class="lgt-text-input"  autocomplete="off"
+                                th:field="*{password}"/>
+                <span class="lgt-error"></span>
+            </div>
+
+            <input type="submit" value="Register"/>
+        </div>
+    </form>
+</body>
+</html>

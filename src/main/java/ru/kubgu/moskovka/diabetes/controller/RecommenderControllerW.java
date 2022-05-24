@@ -9,21 +9,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kubgu.moskovka.diabetes.entity.PersonInfo;
-import ru.kubgu.moskovka.diabetes.entity.RiskFactor;
-import ru.kubgu.moskovka.diabetes.entity.Symptom;
-import ru.kubgu.moskovka.diabetes.entity.Test;
+import ru.kubgu.moskovka.diabetes.entity.*;
+import ru.kubgu.moskovka.diabetes.util.Util;
+
+import java.util.Date;
 
 @Controller
 public class RecommenderControllerW {
     private String diagnosis;
+    private User user = new User("Nata", "Moskovka", "Nat-chan", "Female",
+            new Date(), "password");
 
-    @GetMapping("/diabetes")
+    @GetMapping("/diabetesTest")
     public String questionnairePage(Model model){
         model.addAttribute("personInfo", new PersonInfo());
         model.addAttribute("test", new Test());
         model.addAttribute("riskFactor", new RiskFactor());
         model.addAttribute("symptom", new Symptom());
+        model.addAttribute("user", user);
         return "test";
     }
 
@@ -33,7 +36,7 @@ public class RecommenderControllerW {
         return "showDiagnosis";
     }
 
-    @PostMapping("/diabetes2")
+    @PostMapping("/diabetesTest")
     public String handleUsersData(@ModelAttribute("personInfo") PersonInfo personInfo,
                                   @ModelAttribute("test") Test test,
                                   @ModelAttribute("riskFactor") RiskFactor riskFactor,
@@ -46,14 +49,14 @@ public class RecommenderControllerW {
             e.printStackTrace();
         }
 
-        String age = personInfo.getAge();
-        String gender = personInfo.getGender();
         String pregnant = personInfo.getPregnant();
+        if (pregnant == null)
+            pregnant = "no";
 
         try {
-            clips.eval("(bind ?*gender* " + gender + ")");
+            clips.eval("(bind ?*gender* " + user.getGender() + ")");
             clips.eval("(bind ?*pregnant-input* " + pregnant + ")");
-            clips.eval("(bind ?*age* " + age + ")");
+            clips.eval("(bind ?*age* " + Util.calculateAge(user) + ")");
         } catch (CLIPSException e) {
             e.printStackTrace();
         }

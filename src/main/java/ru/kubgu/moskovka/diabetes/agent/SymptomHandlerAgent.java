@@ -8,11 +8,10 @@ import ru.kubgu.moskovka.diabetes.entity.Symptom;
 
 public class SymptomHandlerAgent extends WorkerAgent {
 
-    private Environment clips;
     private Symptom symptom;
 
     public SymptomHandlerAgent(Environment clips, Symptom symptom) {
-        this.clips = clips;
+        super(clips);
         this.symptom = symptom;
     }
 

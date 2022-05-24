@@ -200,7 +200,7 @@
 )
 
 ;;;******************************************************************************************
-;;;* QUERY TEST RESULS *
+;;;* QUERY TEST RESULTS *
 ;;;******************************************************************************************
 
 (defrule collect-ogtt-pregnant
@@ -257,7 +257,7 @@
               )
           )
         else (assert (test-ogtt not-available))
-        (printout t crlf "ogtt-non-pregnant not a")
+        (printout t crlf "ogtt-non-pregnant not available")
     )
 )
 

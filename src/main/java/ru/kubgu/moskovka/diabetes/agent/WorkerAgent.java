@@ -7,8 +7,15 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import net.sf.clipsrules.jni.Environment;
 
 public class WorkerAgent extends Agent {
+    protected Environment clips;
+
+    public WorkerAgent(Environment clips){
+        this.clips = clips;
+    }
+
     // Send message to the agent-coordinator
     protected void notifyOfWorkFinishing(){
         ACLMessage message = new ACLMessage(ACLMessage.INFORM);
